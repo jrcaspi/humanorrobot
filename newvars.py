@@ -35,7 +35,7 @@ df.loc[(df.merchandise== 'books and music'), 'merch_code'] = 8
 df.loc[(df.merchandise== 'auto parts'), 'merch_code'] = 9
 df.loc[(df.merchandise== 'clothing'), 'merch_code'] = 10
 
-#Calculating minimum_response_time and mean_response_time
+#calculating minimum_response_time and mean_response_time
 df1 = merged.loc[:,['bidder_id','time']]
 df1['diff'] = df1.sort_values(['bidder_id','time']).groupby('bidder_id')['time'].diff(-1)
 df1['diff'] = df1['diff'] * -1
