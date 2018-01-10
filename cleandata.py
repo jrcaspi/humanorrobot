@@ -1,16 +1,12 @@
 import pandas as pd
 import numpy as np
+#Importing the two data tables from the Kaggle competition
 bids = pd.read_csv('bids.csv')
 train = pd.read_csv('train.csv')
 bids.head()
 train.head()
-get_ipython().magic('logstart projectcode.py')
-import pandas as pd
-import numpy as np
-bids = pd.read_csv('bids.csv')
-train = pd.read_csv('train.csv')
-bids.head()
-train.head()
+
+#Merging the files on bidder id
 merged = pd.merge(bids, train, on ='bidder_id')
 merged.isnull().sum()
 merged = merged.dropna(how='any')
@@ -19,7 +15,6 @@ merged.to_csv('merged.csv')
 len(np.unique(merged.bidder_id))
 
 #getting the dataset model ready
-
 df1 = merged
 df1.head()
 df1.dtypes
