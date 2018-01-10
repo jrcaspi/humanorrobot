@@ -1,7 +1,14 @@
+#Improting the Logistic Regression package
 from sklearn.linear_model import LogisticRegression
+
+#We define the criteria of the logistic regression and fit the model
 lr = LogisticRegression (C=1000.0, random_state=0) 
 lr.fit(X_train_std, y_train)
+
+#We predict the outcome variable using standardized X variables
 y_pred=lr.predict(X_test_std)
+
+#We print Misclassification, Accuracy, Confusion Matrix, Classification Report and RMSE
 print ('Misclassified Linear samples: %d' % (y_test != y_pred).sum())
 from sklearn.metrics import classification_report, confusion_matrix
 print ('Linear Accuracy: %.2f' % (accuracy_score(y_test, y_pred)))
@@ -17,6 +24,7 @@ rms = sqrt(mean_squared_error(y_test, y_pred))
 print('RMSE: ')
 print(rms)
 
+#We print the ROC curve
 from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
 false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
