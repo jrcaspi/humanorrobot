@@ -1,9 +1,3 @@
-import pandas as pd
-import numpy as np
-bids = pd.read_csv("bids.csv")
-train = pd.read_csv("train.csv")
-bids_train = pd.merge(bids,train,on=['bidder_id'])
-
 #get count of bids per bidder ID and save to training data
 bids_per_bidder = bids_train.groupby(['bidder_id'])['bid_id'].count()
 bids_per_bidder = bids_per_bidder.to_frame().reset_index()
@@ -11,14 +5,12 @@ bids_per_bidder.columns.values[0] = 'bidder_id'
 bids_per_bidder.columns.values[1] = 'bid_count'
 train2 = pd.merge(bids_per_bidder,train,on=['bidder_id'])  #saved to new file called train2
 
-
 #unique countries per bidder
 country_per_bidder = bids_train.groupby(['bidder_id'])['country'].nunique
 country_per_bidder = country_per_bidder.to_frame().reset_index()
 country_per_bidder.columns.values[0] = 'bidder_id'
 country_per_bidder.columns.values[1] = 'country_cnt'
 train2 = pd.merge(country_per_bidder,train2,on=['bidder_id'])
-
 
 #getting rank of bids by bidder (bidder 1 bid 1, bidder 1 bid 2, etc.)
 #next, create a key column to self join data to the next sequential bid for that bidder
@@ -43,7 +35,7 @@ df.loc[(df.merchandise== 'books and music'), 'merch_code'] = 8
 df.loc[(df.merchandise== 'auto parts'), 'merch_code'] = 9
 df.loc[(df.merchandise== 'clothing'), 'merch_code'] = 10
 
-#For minimum_response_time and mean_response_time
+#Calculating minimum_response_time and mean_response_time
 df1 = merged.loc[:,['bidder_id','time']]
 df1['diff'] = df1.sort_values(['bidder_id','time']).groupby('bidder_id')['time'].diff(-1)
 df1['diff'] = df1['diff'] * -1
